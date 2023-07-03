@@ -63,10 +63,10 @@ public class CashbookDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql= "SELECT cashbook_no cashbookNo, category, price, cashbook_date cashbookDate, memo"
+		String sql="SELECT cashbook_no cashbookNo, category, price, cashbook_date cashbookDate, memo, createdate, updatedate"
 					+" FROM cashbook"
-					+ " WHERE member_id = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ? AND DAY(cashbook_date) = ?"
-					+ " ORDER BY cashbook_date ASC";
+					+" WHERE member_id = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ? AND DAY(cashbook_date) = ?"
+					+" ORDER BY cashbook_date ASC";
 			try {
 				 String driver = "org.mariadb.jdbc.Driver";
 		         String dbUrl= "jdbc:mariadb://127.0.0.1:3306/cash";

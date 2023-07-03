@@ -23,20 +23,7 @@ public class CashbookController extends HttpServlet {
 		if(session.getAttribute("loginMember") == null) {
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
-		}
-		
-		/*Member member = (Member)session.getAttribute("loginMember");
-		int targetYear = Integer.parseInt(request.getParameter("targetYear"));
-		int targetMonth = Integer.parseInt(request.getParameter("targetMonth"));
-		int targetDay = Integer.parseInt(request.getParameter("targetDay"));
-		
-		List<Cashbook> list = new CashbookDao().selectCashbookListByDate(member.getMemberId(), targetYear, targetMonth+1, targetDay);
-		
-		request.setAttribute("targetYear", targetYear);
-		request.setAttribute("targetMonth", targetMonth);
-		request.setAttribute("targetDay", targetDay);
-		request.setAttribute("list", list);*/
-		
+		}	
 		// 이번달 달력에 가계부목록의 모델값을 셋팅
 		request.getRequestDispatcher("/WEB-INF/view/cashbook.jsp").forward(request, response);
 	}

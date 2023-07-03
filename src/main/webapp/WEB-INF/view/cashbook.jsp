@@ -17,7 +17,8 @@ a {text-decoration: none;}
 	<h1>cash book</h1>
 		${loginMember.memberId}님 환영합니다<!-- loginMember에 담음 -->
 	<div><a href="${pageContext.request.contextPath}/logout">로그아웃</a>
-	<a href="${pageContext.request.contextPath}/memberOne">회원정보</a></div>
+	<a href="${pageContext.request.contextPath}/memberOne">회원정보</a>
+	<a href="${pageContext.request.contextPath}/calendar">캘린더</a></div>
 </div>
 </body>
 </html>

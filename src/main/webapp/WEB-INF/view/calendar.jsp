@@ -55,7 +55,11 @@ height: 120px;}
 				<!-- else = > 반대 조건 -->
 				<c:if test="${!(d < 1 || d > lastDate)}">
 					<td>
-						<div>${d}</div>
+                    	<div>
+                        <a href="${pageContext.request.contextPath}/calendarOne?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${d}">
+                            ${d}
+                        </a>
+                    	</div>
 						<c:forEach var="c" items="${list}">
 						<!-- 같으면 그 날짜의 일정 출력-->
 							<c:if test="${ d == fn:substring(c.cashbookDate,8,10)}">

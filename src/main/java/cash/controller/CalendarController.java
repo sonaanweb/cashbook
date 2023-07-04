@@ -3,6 +3,7 @@ package cash.controller;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cash.model.CashbookDao;
+import cash.model.HashtagDao;
 import cash.vo.Cashbook;
 
 
@@ -60,6 +62,11 @@ public class CalendarController extends HttpServlet {
 		// 모델 호출(DAO 타켓 월의 수입/지출 데이터)
 		List<Cashbook> list = new CashbookDao().selectCashbookListByMonth(memberId, targetYear, targetMonth+1);
 		
+		
+		List<Map<String, Object>> htList
+		= new HashtagDao().selectWordCountByMonth(memberId, targetYear, targetMonth+1);
+		System.out.println(htList.size());
+		
 		// 뷰에 값 넘기기(requset 속성)
 		request.setAttribute("targetYear", targetYear);
 		request.setAttribute("targetMonth", targetMonth);
@@ -70,6 +77,7 @@ public class CalendarController extends HttpServlet {
 		
 		// list 뷰 (수입.지출...)
 		request.setAttribute("list", list);
+		request.setAttribute("htList", htList);
 		
 		// 달력을 출력하는 뷰 (데이터를 그대로 넘겨준다(forward))
 		request.getRequestDispatcher("/WEB-INF/view/calendar.jsp").forward(request, response);

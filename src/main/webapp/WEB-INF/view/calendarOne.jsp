@@ -8,7 +8,9 @@
 <title>가계부 상세 내역</title>
 </head>
 <body>
-<h1>${targetYear}년 ${targetMonth+1}월</h1>
+<h1>${targetYear}년 ${targetMonth}월 ${targetDate}일</h1>
+<a href="${pageContext.request.contextPath}/addCashbook?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${targetDate}">추가</a>
+<a href="">삭제</a>
 <table>
 	<tr>
 	    <th>수입/지출</th>

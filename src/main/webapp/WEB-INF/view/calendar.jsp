@@ -29,6 +29,14 @@ height: 120px;}
 	<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}">이전</a>
 	<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음</a>
 </div>
+<div>
+	<h2>이달의 해시태그</h2>
+	<div>
+		<c:forEach var="m" items="${htList}">
+			<a href="">${m.word}(${m.cnt})</a>
+		</c:forEach>
+	</div>
+</div>
 	<table class="table table-bordered" style="width: 60%">
 	<!-- c:forEach : for/forEach문 둘 다 사용가능 -->
 	<tr>
@@ -56,7 +64,7 @@ height: 120px;}
 				<c:if test="${!(d < 1 || d > lastDate)}">
 					<td>
                     	<div>
-                        <a href="${pageContext.request.contextPath}/calendarOne?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${d}">
+                        <a href="${pageContext.request.contextPath}/calendarOne?targetYear=${targetYear}&targetMonth=${(targetMonth+1)}&targetDate=${d}">
                             ${d}
                         </a>
                     	</div>

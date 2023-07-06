@@ -20,7 +20,12 @@ public class MemberOneController extends HttpServlet {
 		// 폼에서 받아오는 게 없음 doPost 삭제
 		// session 유효성 검사
 		HttpSession session = request.getSession();
-		Member loginMember = (Member)(session.getAttribute("loginMember"));
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		if(session.getAttribute("loginMember") == null){
+			// 로그인이 되지 않은 상태면 login.jsp로 이동한다
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
 		
 		// 모델 값 구하기 - 모델 호출 (DAO 메서드 호출)
 		MemberDao memberDao = new MemberDao();

@@ -24,12 +24,11 @@ public class AddCashbookController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// session 유효성 검사
 		HttpSession session = request.getSession();
-		Member member = (Member)session.getAttribute("loginMember");
 		if(session.getAttribute("loginMember")==null){
 			// 로그인이 되지 않은 상태면 login.jsp로 이동한다
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
-		}
+		}	
 		
 		// request 매개값 분석
 		int targetYear = Integer.parseInt(request.getParameter("targetYear")); // 폼에서 바로 넘어옴
@@ -50,19 +49,19 @@ public class AddCashbookController extends HttpServlet {
 	
 	// 입력액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// session 유효성 검사
-		request.setCharacterEncoding("utf-8");
 		
+		request.setCharacterEncoding("utf-8"); // 인코딩 - 요청에서 전달되는 데이터 문자 인코딩 - 설정 안 했을 때 오류
+		
+		// session 유효성 검사
 		HttpSession session = request.getSession();
-		Member loginMember = new Member();
-		if(session.getAttribute("loginMember") != null) {
-			loginMember = (Member)(session.getAttribute("loginMember"));
-		} else {
-			request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+	    Member loginMember = (Member)session.getAttribute("loginMember"); // Member 클래스 객체 loginMember 불러오기
+		if(session.getAttribute("loginMember") == null){
+			// 로그인이 되지 않은 상태면 login.jsp로 이동한다
+			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
-		String memberId = loginMember.getMemberId();
-		System.out.println(memberId+"<-memberId");
+		String memberId = loginMember.getMemberId(); // loginMember 객체에서 아이디 반환 memberId에 저장(로그인 사용자)
+		System.out.println(memberId+"<-- add cashbook memberId");
 		
 		// request 매개값으로 채워줄 것
 		// reuqest.getParameter()

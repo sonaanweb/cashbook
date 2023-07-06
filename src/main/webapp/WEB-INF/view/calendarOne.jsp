@@ -10,9 +10,10 @@
 <body>
 <h1>${targetYear}년 ${targetMonth}월 ${targetDate}일</h1>
 <a href="${pageContext.request.contextPath}/addCashbook?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${targetDate}">추가</a>
-<a href="">삭제</a>
+<button onclick="deleteSelected()">삭제</button>
 <table>
 	<tr>
+		<th>선택</th>
 	    <th>수입/지출</th>
 	    <th>금액</th>
 	    <th>날짜</th>
@@ -20,6 +21,7 @@
 	</tr>
 	<c:forEach items="${list}" var="cashbook">
     <tr>
+     	<td><input type="checkbox" name="selectedItem" value="${cashbook.cashbookNo}"></td>
         <td>${cashbook.category}</td>
         <td>${cashbook.price}</td>
         <td>${cashbook.cashbookDate}</td>

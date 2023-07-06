@@ -10,10 +10,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import cash.model.CashbookDao;
 import cash.model.HashtagDao;
 import cash.vo.Cashbook;
+import cash.vo.Member;
 
 
 @WebServlet("/calendar")
@@ -21,7 +23,15 @@ public class CalendarController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// session 인증 검사
-		String memberId = "user"; // session 안 로그인정보를 가져와야 함 
+		HttpSession session = request.getSession();
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		if(session.getAttribute("loginMember")==null){
+			// 로그인이 되지 않은 상태면 login.jsp로 이동한다
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
+		String memberId = loginMember.getMemberId();
+		System.out.println(memberId + "<---calendar login member");	
 		
 		// view에 넘겨줄 달력정보(모델값)
 		Calendar firstDay = Calendar.getInstance();

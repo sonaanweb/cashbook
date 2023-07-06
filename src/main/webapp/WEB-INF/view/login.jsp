@@ -22,13 +22,18 @@ a {text-decoration: none;}
 		 <table class="table table-bordered">
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" name="memberId"></td>
+				<td><input type="text" name="memberId" value="${loginMemberId}"></td>
+        		 <!-- EL은 null값 분기문 작성하지 않아도 된다. 자동null값 처리 -->
 			</tr>
 			<tr>
 				<td>비밀번호</td>
 				<td><input type="password" name="memberPw"></td>
 			</tr>
 		</table>
+		<div>
+			<input type="checkbox" name="idSave" value="y" ${loginMemberId != null ? 'checked' : ''}>ID저장
+			<!-- 삼항 연산자 사용 checked 유지와 아이디 유지 -->
+		</div>
 		<button type="submit" class="btn">로그인</button>
 		<a href="${pageContext.request.contextPath}/addMember" class="btn">회원가입</a>
 	</form>

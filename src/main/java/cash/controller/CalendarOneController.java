@@ -19,21 +19,24 @@ import cash.vo.Member;
 public class CalendarOneController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// session 인증 검사 코드
+		// session 인증 검사
 		HttpSession session = request.getSession();
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		if(session.getAttribute("loginMember")==null){
 			// 로그인이 되지 않은 상태면 login.jsp로 이동한다
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
-		Member member = (Member)session.getAttribute("loginMember");
 		
+		String memberId = loginMember.getMemberId();
+		System.out.println(memberId + "<---calendar One login member");			
 		int targetYear = Integer.parseInt(request.getParameter("targetYear"));
 		int targetMonth = Integer.parseInt(request.getParameter("targetMonth"));
 		int targetDate = Integer.parseInt(request.getParameter("targetDate"));
 		
-		List<Cashbook> list = new CashbookDao().selectCashbookListByDate(member.getMemberId(), targetYear, targetMonth, targetDate);
-
+		List<Cashbook> list = new CashbookDao().selectCashbookListByDate(memberId, targetYear, targetMonth, targetDate);
+		
+		/*request.setAttribute("memberId", memberId);*/
 		request.setAttribute("targetYear", targetYear);
 		request.setAttribute("targetMonth", targetMonth);
 		request.setAttribute("targetDate", targetDate);

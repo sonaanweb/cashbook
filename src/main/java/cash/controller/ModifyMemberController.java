@@ -19,13 +19,12 @@ public class ModifyMemberController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//session 유효성 검사
 		HttpSession session = request.getSession();
-
-		if(session.getAttribute("loginMember")==null){
+		if(session.getAttribute("loginMember") == null){
 			// 로그인이 되지 않은 상태면 login.jsp로 이동한다
 			response.sendRedirect(request.getContextPath()+"/login");
 			return;
 		}
-		
+	
 		// 로그인 상태일시 modifyMember.jsp로 이동
 		request.getRequestDispatcher("/WEB-INF/view/modifyMember.jsp").forward(request, response);
 	}

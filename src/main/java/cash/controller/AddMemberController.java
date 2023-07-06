@@ -18,7 +18,7 @@ public class AddMemberController extends HttpServlet {
 	// addMember.jsp 회원가입 폼
 	  @Override
 	  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	// session 유효성 검사(null)
+	// session 유효성 검사
      HttpSession session = request.getSession();
      if(session.getAttribute("loginMember") != null) {
         response.sendRedirect(request.getContextPath() + "/login");
@@ -38,7 +38,7 @@ public class AddMemberController extends HttpServlet {
 	        return;
 	     }
       
-      // reuqest.getParameter()
+      // reuqest.getParameter(post형식으로 폼에서 받아오는 것)
 	  String memberId = request.getParameter("memberId");
 	  String memberPw = request.getParameter("memberPw");
       Member member = new Member(memberId,memberPw,null,null);

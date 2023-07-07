@@ -50,7 +50,7 @@ public class AddCashbookController extends HttpServlet {
 	// 입력액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("utf-8"); // 인코딩 - 요청에서 전달되는 데이터 문자 인코딩 - 설정 안 했을 때 오류
+		//request.setCharacterEncoding("utf-8"); //요청에서 전달되는 데이터 문자 인코딩 - 설정 안 했을 때 오류 -> 필터적용
 		
 		// session 유효성 검사
 		HttpSession session = request.getSession();

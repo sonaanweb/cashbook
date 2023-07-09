@@ -38,14 +38,27 @@ public class AddMemberController extends HttpServlet {
 	        return;
 	     }
       
+	  Member member = new Member();
       // reuqest.getParameter(post형식으로 폼에서 받아오는 것)
 	  String memberId = request.getParameter("memberId");
 	  String memberPw = request.getParameter("memberPw");
-      Member member = new Member(memberId,memberPw,null,null);
+	  member.setMemberId(memberId);
+	  member.setMemberPw(memberPw);
       
       // 회원가입 DAO 호출
       MemberDao memberDao = new MemberDao();
+      
+      // 중복 아이디 체크
+      int cnt = memberDao.checkId(memberId);
+      if(cnt > 0) {
+    	  System.out.println("중복된 아이디가 존재합니다.");
+    	  response.sendRedirect(request.getContextPath()+"/addMember");
+    	  return;
+      }
+      
+      // 가입 메서드
       int row = memberDao.insertMember(member);
+      
       if(row == 0) { // 회원가입 실패시
          // addMember.jsp view를 이동하는 controller를 리다이렉트 - 기존에 사용했던 데이터를 남겨서 보내기 위함
     	  request.getRequestDispatcher("/WEB-INF/view/addMember.jsp").forward(request, response);

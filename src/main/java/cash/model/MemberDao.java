@@ -51,12 +51,11 @@ public class MemberDao {
 		}
 
 	
-	// 회원가입 메서드
+	//회원가입 메서드
 	public int insertMember(Member member) {
 		int row = 0;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		String sql = "INSERT INTO member VALUES(?, PASSWORD(?), NOW(), NOW())";
 	     try {
 	         String driver = "org.mariadb.jdbc.Driver";
@@ -69,6 +68,7 @@ public class MemberDao {
 	         stmt.setString(1, member.getMemberId());
 	         stmt.setString(2, member.getMemberPw());
 	         row = stmt.executeUpdate();
+	         
 	      } catch (Exception e1) {
 	         e1.printStackTrace();
 	      } finally {
@@ -81,6 +81,94 @@ public class MemberDao {
 	      }
 	      return row;
 	   }
+	
+	// 아이디 중복 체크
+	public int checkId(String memberId) {
+		int cnt = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT count(*) FROM member WHERE member_id = ?";
+		try {
+	         String driver = "org.mariadb.jdbc.Driver";
+	         String dbUrl= "jdbc:mariadb://127.0.0.1:3306/cash";
+	         String dbUser = "root";
+	         String dbPw = "java1234";
+	         Class.forName(driver);
+	         conn = DriverManager.getConnection(dbUrl, dbUser, dbPw);
+	         stmt = conn.prepareStatement(sql);
+	         stmt.setString(1, memberId);
+	         rs = stmt.executeQuery();
+	         if(rs.next()) {
+	        	 cnt = rs.getInt(1);
+	         }
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return cnt;
+	}
+
+	/*하나의 메서드
+	public int insertMember(Member member) {
+	    int row = 0;
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    String insertSql = "INSERT INTO member VALUES(?, PASSWORD(?), NOW(), NOW())";
+	    String checkSql = "SELECT COUNT(*) FROM member WHERE member_id = ?";
+	    try {
+	        String driver = "org.mariadb.jdbc.Driver";
+	        String dbUrl = "jdbc:mariadb://127.0.0.1:3306/cash";
+	        String dbUser = "root";
+	        String dbPw = "java1234";
+	        Class.forName(driver);
+	        conn = DriverManager.getConnection(dbUrl, dbUser, dbPw);
+
+	        // 아이디 중복 체크
+	        PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+	        checkStmt.setString(1, member.getMemberId());
+	        ResultSet checkRs = checkStmt.executeQuery();
+	        if (checkRs.next()) {
+	            int cnt = checkRs.getInt(1);
+	            if (cnt > 0) {
+	                System.out.println("중복된 아이디입니다.");
+	                return cnt;
+	            }
+	        }
+	        checkRs.close();
+	        checkStmt.close();
+
+	        // 회원 가입
+	        stmt = conn.prepareStatement(insertSql);
+	        stmt.setString(1, member.getMemberId());
+	        stmt.setString(2, member.getMemberPw());
+	        row = stmt.executeUpdate();
+
+	        if (row > 0) {
+	            System.out.println("가입이 성공적으로 이루어졌습니다.");
+	        } else {
+	            System.out.println("가입에 실패하였습니다.");
+	        }
+
+	    } catch (Exception e1) {
+	        e1.printStackTrace();
+	    } finally {
+	        try {
+	           stmt.close();
+	           conn.close();
+	        } catch (Exception e2) {
+	            e2.printStackTrace();
+	        }
+	    }
+	    return row;
+	}*/
 	
 	// 로그인 메서드
 	public Member selectMemberById(Member paramMember) { // 회원 조회

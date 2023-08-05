@@ -6,17 +6,86 @@
 <html>
 <head>
 <meta charset="UTF-8">
-  <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.1/dist/minty/bootstrap.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
-td{
-width: 120px;
-height: 120px;}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+body {
+   font-family: 'Pretendard-Regular';
+   margin: 20px;
+   justify-content: center;
+   align-items: center;
+ }
+
+td {
+   width: 120px;
+   height: 120px;
+   text-align: center;
+ }
+
+th {
+   background-color: #f2f2f2;
+ }
+ 
+.day-link {
+   display: block;
+   padding: 5px;
+   text-align: right;
+ }
+
+.day-link:hover {
+   background-color: #FBEEAC;
+ }
+
+.income {
+   color: #F4D160;
+ }
+
+.expense {
+   color: #1D5D9B;
+ }
+.container {
+    text-align: center;
+  }
+
+.hash-tags {
+    display: inline-block;
+  }
+.date{
+	font-size: 40px;
+  }
+.pre{
+	color: #1D5D9B;
+}
+.next{
+	color: #1D5D9B;
+}
+.mandy{
+	color: #071952;
+}
+a{
+	text-decoration: none;
+}
 </style>
 <title>Insert title here</title>
 </head>
 <body>
+<div class="container">
+<br>
+	<!-- 메인 메뉴 -->
+	<div>
+		<jsp:include page="/WEB-INF/inc/mainmenu.jsp"></jsp:include>
+	</div>
+	<!-- ----- 메인 메뉴 end -->
+		<span>${loginMember.memberId}님 환영합니다!💰<!-- loginMember에 담음 --></span>
+		<br>&#128171;오늘도 좋은 하루 보내세요&#128171;
 <!-- 변수값 or 반환값 대신 EL 표현식(달러표시) 사용 -->
 <!--
 	속성값 대신 EL 사용 ex) request.getAttribute("targetYear")
@@ -24,24 +93,24 @@ height: 120px;}
 	형변환 연산이 필요 없다. EL이 자동으로 처리
 -->
 <!-- 자바코드(제어문) : JSTL로 사용 -->
-<h1>${targetYear}년 ${targetMonth+1}월</h1>
-<div>
-	<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}">이전</a>
-	<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}">다음</a>
+<div class="mandy">
+	<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth-1}" class="pre">&lt;</a>
+	<span class="date">${targetYear}년 ${targetMonth+1}월</span>
+	<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth+1}" class="next">&gt;</a>
 </div>
-<div>
-	<h2>이달의 해시태그</h2>
+<div class="hash-tags">
+	<span>&#128464;이달의 해시태그</span>
 	<div>
 		<c:forEach var="m" items="${htList}">
 			<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${m.word}">
 			${m.word}(${m.cnt})
 			</a>
 		</c:forEach>
-	</div>
+	</div><br>
 </div>
-	<table class="table table-bordered" style="width: 60%">
+	<table class="table table-bordered">
 	<!-- c:forEach : for/forEach문 둘 다 사용가능 -->
-	<tr>
+	<tr style="background-color: #F4D160;">
 		<th>일</th>
 		<th>월</th>
 		<th>화</th>
@@ -65,7 +134,7 @@ height: 120px;}
 				<!-- else = > 반대 조건 -->
 				<c:if test="${!(d < 1 || d > lastDate)}">
 					<td>
-                    	<div>
+                    	<div class="day-link">
                         <a href="${pageContext.request.contextPath}/calendarOne?targetYear=${targetYear}&targetMonth=${(targetMonth+1)}&targetDate=${d}">
                             ${d}
                         </a>
@@ -75,10 +144,10 @@ height: 120px;}
 							<c:if test="${ d == fn:substring(c.cashbookDate,8,10)}">
 								<div>
 									<c:if test="${c.category == '수입' }">
-										<span>+${c.price}</span>
+										<span class="income">+${c.price}</span>
 									</c:if>
 								<c:if test="${c.category == '지출' }">
-									<span style="color: red;">-${c.price}</span>
+									<span class="expense">-${c.price}</span>
 								</c:if>
 								</div>
 							</c:if>
@@ -88,5 +157,7 @@ height: 120px;}
 			</c:forEach>
 		</tr>
 	</table>
+	<br><br>
+</div>
 </body>
 </html>

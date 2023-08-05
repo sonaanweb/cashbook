@@ -1,7 +1,6 @@
 package cash.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cash.model.*;
-import cash.vo.*;
+import cash.model.MemberDao;
+import cash.vo.Member;
 
 @WebServlet("/login")//new-servlet 생성
 public class LoginController extends HttpServlet {
@@ -23,7 +22,7 @@ public class LoginController extends HttpServlet {
 		//session 인증 검사 코드
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") != null) { // 로그인 상태라면
-			response.sendRedirect(request.getContextPath()+"/cashbook");
+			response.sendRedirect(request.getContextPath()+"/calendar");
 			return;
 		}
 
@@ -83,8 +82,8 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("loginMember", loginMember);
 		System.out.println("로그인 성공");
-		response.sendRedirect(request.getContextPath()+"/cashbook");
-		// 로그인 성공페이지로 redirect -> /cashbook
+		response.sendRedirect(request.getContextPath()+"/calendar");
+		// 로그인 성공페이지로 redirect -> /calendar
 	}
 
 }

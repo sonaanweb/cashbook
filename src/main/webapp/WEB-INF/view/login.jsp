@@ -10,7 +10,7 @@
 <title>login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.1/dist/minty/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.1/dist/flatly/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 @font-face {
@@ -61,7 +61,7 @@ html, body {
   text-transform: uppercase;
   padding: 5px;
   margin-bottom: 20px;
-  background: linear-gradient(to right, #f3969a, #FFEBB4, #FFACAC);
+  background: linear-gradient(to right, #1D5D9B, #F4D160, #FBEEAC);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -100,12 +100,12 @@ a.btn.btn-light{
 	          	</div>
           		<!-- pw end -->
         		<div>
-				<input type="checkbox" name="idSave" value="y" ${loginMember != null ? 'checked' : ''}>ID저장
+				<input type="checkbox" class="form-check-input" name="idSave" value="y" ${loginMember != null ? 'checked' : ''}>ID저장
 				<!-- 삼항 연산자 사용 checked 유지와 아이디 유지 -->
 				</div>
 				<!-- check end -->
           		<div class="button-login-box" >
-            		<button type="submit" class="btn btn-secondary" style="width:100%">로그인</button>
+            		<button type="submit" class="btn btn-primary" style="width:100%;,">로그인</button>
             		<a href="${pageContext.request.contextPath}/addMember" class="btn btn-light" style="width:100%">회원가입</a>
           		</div>
         	</div>

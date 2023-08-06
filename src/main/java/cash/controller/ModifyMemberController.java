@@ -69,7 +69,7 @@ public class ModifyMemberController extends HttpServlet {
 		
 		if(row == 1) {
 			System.out.println("비밀번호 변경 성공");
-			response.sendRedirect(request.getContextPath()+"/cashbook");
+			response.sendRedirect(request.getContextPath()+"/memberOne");
 		}else if(row == 0){
 			System.out.println("비밀번호 변경 실패");
 			response.sendRedirect(request.getContextPath()+"/modifyMember");

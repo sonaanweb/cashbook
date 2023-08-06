@@ -77,8 +77,7 @@ a{
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container">
-<br>
+<div class="container mt-3">
 	<!-- 메인 메뉴 -->
 	<div>
 		<jsp:include page="/WEB-INF/inc/mainmenu.jsp"></jsp:include>
